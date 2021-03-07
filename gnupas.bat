@@ -5,7 +5,12 @@ call :init
 
 set /a "i=0"
 :copy_options
-    set "option=%~1"
+    echo %~1| findstr /r "^-- ^- ^/" 2> nul > nul
+    if %errorlevel% neq 0 (
+        set "option=%~f1"
+    ) else (
+        set "option=%~1"
+    )
     if defined option (
         set "args[%i%]=%option%"
         shift
