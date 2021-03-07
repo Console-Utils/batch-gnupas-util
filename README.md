@@ -11,7 +11,7 @@ compiler [options] pathToFile [pathToOutFile]
 - `-h`|`--help`|`/h`|`/help` - writes help and exits
 - `-v`|`--version`|`/v`|`/version` - writes version and exits
 - `-p`|`--path`|`/p`|`/path` - specifies path to GNU Pascal compiler
-`!` - suppress prompts to change PATH variable
+- `!` - suppress prompts to change PATH variable
 
 # Examples
 ```bat
