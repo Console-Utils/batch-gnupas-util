@@ -71,11 +71,6 @@ if not exist "%path_to_file%" (
     exit /b %WRONG_FILE_PASSED_EC%
 )
 
-if exist "%path_to_out_file%" (
-    echo %WRONG_OUTPUT_FILE_PASSED_MSG%
-    exit /b %WRONG_OUTPUT_FILE_PASSED_EC%
-)
-
 if %use_path% equ %TRUE% (
     gpc --version 2> nul > nul || (
         if %use_suppress% equ %FALSE% (
@@ -98,7 +93,8 @@ if %use_path% equ %TRUE% (
         echo %COMPILER_NOT_FOUND_MSG%
         exit /b %COMPILER_NOT_FOUND_EC%
     )
-    "%path_to_compiler%" "%path_to_file%" -o "%path_to_out_file%"
+    cd "%path_to_compiler%"
+    gpc "%path_to_file%" -o "%path_to_out_file%"
 )
 
 exit /b %SUCCESS_EC%
@@ -106,12 +102,10 @@ exit /b %SUCCESS_EC%
 :init
     set /a "SUCCESS_EC=0"
     set /a "WRONG_FILE_PASSED_EC=1"
-    set /a "WRONG_OUTPUT_FILE_PASSED_EC=2"
-    set /a "COMPILER_NOT_FOUND_EC=3"
-    set /a "SHELL_RESTART_REQUIRED_EC=4"
+    set /a "COMPILER_NOT_FOUND_EC=2"
+    set /a "SHELL_RESTART_REQUIRED_EC=3"
 
     set "WRONG_FILE_PASSED_MSG=None file passed or it is not found."
-    set "WRONG_OUTPUT_FILE_PASSED_MSG=Passed output file already exists."
     set "COMPILER_NOT_FOUND_MSG=GNU Pascal compiler is not found."
     set "SHELL_RESTART_REQUIRED_MSG=You have to restart your shell to apply changes to PATH."
 
@@ -120,7 +114,7 @@ exit /b %SUCCESS_EC%
 
     set /a "use_path=TRUE"
     set /a "use_suppress=FALSE"
-    set "default_path_to_compiler=C:\dev_gpc\"
+    set "default_path_to_compiler=C:\dev_gpc\bin\"
 exit /b %SUCCESS_EC%
 
 :help
