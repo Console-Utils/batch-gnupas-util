@@ -54,19 +54,6 @@ set /a "i=0"
         goto main_loop
     )
 
-    set /a "is_path=FALSE"
-    if "%option%" == "-p" set /a "is_path=TRUE"
-    if "%option%" == "--path" set /a "is_path=TRUE"
-    if "%option%" == "/p" set /a "is_path=TRUE"
-    if "%option%" == "/path" set /a "is_path=TRUE"
-
-    if %is_path% equ %TRUE% (
-        set "path_to_compiler=%value%"
-        set /a "use_path=FALSE"
-        set /a "i+=2"
-        goto main_loop
-    )
-
     set /a "is_suppress=FALSE"
     if "%option%" == "!" set /a "is_suppress=TRUE"
 
@@ -84,9 +71,9 @@ if not exist "%path_to_file%" (
     exit /b %WRONG_FILE_PASSED_EC%
 )
 
-if not exist "%path_to_out_file%" (
-    echo %WRONG_FOLDER_PASSED_MSG%
-    exit /b %WRONG_FOLDER_PASSED_EC%
+if exist "%path_to_out_file%" (
+    echo %WRONG_OUTPUT_FILE_PASSED_MSG%
+    exit /b %WRONG_OUTPUT_FILE_PASSED_EC%
 )
 
 if %use_path% equ %TRUE% (
@@ -119,12 +106,12 @@ exit /b %SUCCESS_EC%
 :init
     set /a "SUCCESS_EC=0"
     set /a "WRONG_FILE_PASSED_EC=1"
-    set /a "WRONG_FOLDER_PASSED_EC=2"
+    set /a "WRONG_OUTPUT_FILE_PASSED_EC=2"
     set /a "COMPILER_NOT_FOUND_EC=3"
     set /a "SHELL_RESTART_REQUIRED_EC=4"
 
     set "WRONG_FILE_PASSED_MSG=None file passed or it is not found."
-    set "WRONG_FOLDER_PASSED_MSG=Passed folder is not found."
+    set "WRONG_OUTPUT_FILE_PASSED_MSG=Passed output file already exists."
     set "COMPILER_NOT_FOUND_MSG=GNU Pascal compiler is not found."
     set "SHELL_RESTART_REQUIRED_MSG=You have to restart your shell to apply changes to PATH."
 
