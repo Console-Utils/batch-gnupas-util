@@ -12,10 +12,24 @@ set /a "i=0"
         set "option=%~1"
     )
     if defined option (
-        set "args[%i%]=%option%"
+        if not "%option%" == "--" (
+            set "args[%i%]=%option%"
+            shift
+            set /a "i+=1"
+            goto copy_options
+        ) else (
+            shift
+            set /a "i+=1"
+        )
+    )
+
+set compiler_options=-O3 --pointer-arithmetic --gnu-pascal
+:copy_compiler_options
+    set "option=%~1"
+    if defined option (
+        set compiler_options=%compiler_options% %option%
         shift
-        set /a "i+=1"
-        goto copy_options
+        goto copy_compiler_options
     )
 
 set /a "i=0"
@@ -92,14 +106,14 @@ if %use_path% equ %TRUE% (
         echo %COMPILER_NOT_FOUND_MSG%
         exit /b %COMPILER_NOT_FOUND_EC%
     )
-    gpc "%path_to_file%" -o "%path_to_out_file%"
+    gpc "%path_to_file%" -o "%path_to_out_file%" %compiler_options%
 ) else (
     if not exist "%path_to_compiler%" (
         echo %COMPILER_NOT_FOUND_MSG%
         exit /b %COMPILER_NOT_FOUND_EC%
     )
     cd "%path_to_compiler%"
-    gpc "%path_to_file%" -o "%path_to_out_file%"
+    gpc "%path_to_file%" -o "%path_to_out_file%" %compiler_options%
 )
 
 exit /b %SUCCESS_EC%
@@ -126,7 +140,7 @@ exit /b %SUCCESS_EC%
     echo Simplifies access to GNU Pascal compiler.
     echo.
     echo Syntax:
-    echo    compiler [options] pathToFile [pathToOutFile]
+    echo    compiler [options] pathToFile [pathToOutFile] [-- [compilerOptions]]
     echo.
     echo Options:
     echo    -h^|--help^|/h^|/help - writes help and exits
@@ -136,7 +150,15 @@ exit /b %SUCCESS_EC%
     echo.
     echo Examples:
     echo    compiler --version
-    echo    compiler test.pas target_directory\
+    echo    compiler test.pas test.exe
+    echo    compiler --path path-to-compiler test.pas test.exe
+    echo.
+    echo Notes:
+    echo    Optimization, pointer arithmetic and GNU Pascal extensions are enabled by default.
+    echo    It means that -O3, --pointer-arithmetic, --gnu-pascal compiler options are passed by default.
+    echo.
+    echo Author:
+    echo    Alvin Seville ^<AlvinSeville7cf@gmail.com^>
 exit /b %SUCCESS_EC%
 
 :version
