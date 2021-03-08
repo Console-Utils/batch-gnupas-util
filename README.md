@@ -31,7 +31,10 @@ gnupas --path path-to-compiler test.pas test.exe
 - `1` - None file passed or it is not found
 - `2` - GNU Pascal compiler is not found
 - `3` - You have to restart your shell to apply changes to PATH
-    
+
+If compilation failed then compiler error status is returned.
+If -e|--exec|/e|/exec option passed then program execution error status is returned.
+
 # Notes
 Optimization, pointer arithmetic and GNU Pascal extensions are enabled by default.
 It means that -O3, --pointer-arithmetic, --gnu-pascal compiler options are passed by default.

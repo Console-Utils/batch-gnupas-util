@@ -119,6 +119,8 @@ if %use_path% equ %TRUE% (
         exit /b %COMPILER_NOT_FOUND_EC%
     )
     gpc "%path_to_file%" -o "%path_to_out_file%" %compiler_options%
+    set /a "error_status=%errorlevel%"
+    if %error_status% neq 0 exit /b %error_status%
 ) else (
     if not exist "%path_to_compiler%" (
         echo %COMPILER_NOT_FOUND_MSG%
@@ -126,13 +128,15 @@ if %use_path% equ %TRUE% (
     )
     cd "%path_to_compiler%"
     gpc "%path_to_file%" -o "%path_to_out_file%" %compiler_options%
+    set /a "error_status=%errorlevel%"
+    if %error_status% neq 0 exit /b %error_status%
 )
 
 if %use_exec% equ %TRUE% (
     "%path_to_out_file%"
     set /a "error_status=%errorlevel%"
     pause > nul
-    exit %error_status%
+    exit /b %error_status%
 )
 
 exit /b %SUCCESS_EC%
@@ -179,6 +183,9 @@ exit /b %SUCCESS_EC%
     echo    - 1 - None file passed or it is not found
     echo    - 2 - GNU Pascal compiler is not found
     echo    - 3 - You have to restart your shell to apply changes to PATH
+    echo.
+    echo    If compilation failed then compiler error status is returned.
+    echo    If -e^|--exec^|/e^|/exec option passed then program execution error status is returned.
     echo.
     echo Notes:
     echo    Optimization, pointer arithmetic and GNU Pascal extensions are enabled by default.
