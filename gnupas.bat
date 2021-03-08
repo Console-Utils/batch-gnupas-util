@@ -82,6 +82,18 @@ set /a "i=0"
         goto main_loop
     )
 
+    set /a "is_exec=FALSE"
+    if "%option%" == "-e" set /a "is_exec=TRUE"
+    if "%option%" == "--exec" set /a "is_exec=TRUE"
+    if "%option%" == "/e" set /a "is_exec=TRUE"
+    if "%option%" == "/exec" set /a "is_exec=TRUE"
+
+    if %is_exec% equ %TRUE% (
+        set /a "use_exec=TRUE"
+        set /a "i+=1"
+        goto main_loop
+    )
+
 set "path_to_file=%option%"
 set "path_to_out_file=%value%"
 
@@ -116,6 +128,11 @@ if %use_path% equ %TRUE% (
     gpc "%path_to_file%" -o "%path_to_out_file%" %compiler_options%
 )
 
+if %use_exec% equ %TRUE% (
+    "%path_to_out_file%"
+    pause > nul
+)
+
 exit /b %SUCCESS_EC%
 
 :init
@@ -133,6 +150,7 @@ exit /b %SUCCESS_EC%
 
     set /a "use_path=TRUE"
     set /a "use_suppress=FALSE"
+    set /a "use_exec=FALSE"
     set "default_path_to_compiler=C:\dev_gpc\bin\"
 exit /b %SUCCESS_EC%
 
@@ -140,12 +158,13 @@ exit /b %SUCCESS_EC%
     echo Simplifies access to GNU Pascal compiler.
     echo.
     echo Syntax:
-    echo    gnupas [options] pathToFile [pathToOutFile] [-- [compilerOptions]]
+    echo    gnupas [options] pathToFile pathToOutFile [-- [compilerOptions]]
     echo.
     echo Options:
     echo    - -h^|--help^|/h^|/help - writes help and exits
     echo    - -v^|--version^|/v^|/version - writes version and exits
     echo    - -p^|--path^|/p^|/path - specifies path to GNU Pascal compiler
+    echo    - -e^|--exec^|/e^|/exec - executes compiled program immediately
     echo    - ! - suppress prompts to change PATH variable
     echo.
     echo Examples:

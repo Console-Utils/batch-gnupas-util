@@ -4,13 +4,14 @@ Simplifies access to GNU Pascal compiler.
 
 # Syntax
 ```bat
-gnupas [options] pathToFile [pathToOutFile] [-- [compilerOptions]]
+gnupas [options] pathToFile pathToOutFile [-- [compilerOptions]]
 ```
 
 # Options
-- `h`|`help`|`h`|`help` - writes help and exits
-- `v`|`version`|`v`|`version` - writes version and exits
-- `p`|`path`|`p`|`path` - specifies path to GNU Pascal compiler
+- `-h`|`--help`|`/h`|`/help` - writes help and exits
+- `-v`|`--version`|`/v`|`/version` - writes version and exits
+- `-p`|`--path`|`/p`|`/path` - specifies path to GNU Pascal compiler
+- `-e`|`--exec`|`/e`|`/exec` - executes compiled program immediately
 - `!` - suppress prompts to change PATH variable
     
 # Examples
