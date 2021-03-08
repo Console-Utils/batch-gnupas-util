@@ -130,7 +130,9 @@ if %use_path% equ %TRUE% (
 
 if %use_exec% equ %TRUE% (
     "%path_to_out_file%"
+    set /a "error_status=%errorlevel%"
     pause > nul
+    exit %error_status%
 )
 
 exit /b %SUCCESS_EC%
