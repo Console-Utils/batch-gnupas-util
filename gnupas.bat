@@ -143,15 +143,21 @@ exit /b %SUCCESS_EC%
     echo    compiler [options] pathToFile [pathToOutFile] [-- [compilerOptions]]
     echo.
     echo Options:
-    echo    -h^|--help^|/h^|/help - writes help and exits
-    echo    -v^|--version^|/v^|/version - writes version and exits
-    echo    -p^|--path^|/p^|/path - specifies path to GNU Pascal compiler
-    echo    ! - suppress prompts to change PATH variable
+    echo    - -h^|--help^|/h^|/help - writes help and exits
+    echo    - -v^|--version^|/v^|/version - writes version and exits
+    echo    - -p^|--path^|/p^|/path - specifies path to GNU Pascal compiler
+    echo    - ! - suppress prompts to change PATH variable
     echo.
     echo Examples:
     echo    compiler --version
     echo    compiler test.pas test.exe
     echo    compiler --path path-to-compiler test.pas test.exe
+    echo.
+    echo Error codes:
+    echo    - 0 - Success
+    echo    - 1 - None file passed or it is not found
+    echo    - 2 - GNU Pascal compiler is not found
+    echo    - 3 - You have to restart your shell to apply changes to PATH
     echo.
     echo Notes:
     echo    Optimization, pointer arithmetic and GNU Pascal extensions are enabled by default.
