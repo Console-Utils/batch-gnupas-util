@@ -140,7 +140,7 @@ exit /b %SUCCESS_EC%
     echo Simplifies access to GNU Pascal compiler.
     echo.
     echo Syntax:
-    echo    compiler [options] pathToFile [pathToOutFile] [-- [compilerOptions]]
+    echo    gnupas [options] pathToFile [pathToOutFile] [-- [compilerOptions]]
     echo.
     echo Options:
     echo    - -h^|--help^|/h^|/help - writes help and exits
@@ -149,9 +149,9 @@ exit /b %SUCCESS_EC%
     echo    - ! - suppress prompts to change PATH variable
     echo.
     echo Examples:
-    echo    compiler --version
-    echo    compiler test.pas test.exe
-    echo    compiler --path path-to-compiler test.pas test.exe
+    echo    gnupas --version
+    echo    gnupas test.pas test.exe
+    echo    gnupas --path path-to-compiler test.pas test.exe
     echo.
     echo Error codes:
     echo    - 0 - Success

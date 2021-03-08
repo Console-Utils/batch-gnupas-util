@@ -4,7 +4,7 @@ Simplifies access to GNU Pascal compiler.
 
 # Syntax
 ```bat
-compiler [options] pathToFile [pathToOutFile] [-- [compilerOptions]]
+gnupas [options] pathToFile [pathToOutFile] [-- [compilerOptions]]
 ```
 
 # Options
@@ -15,15 +15,15 @@ compiler [options] pathToFile [pathToOutFile] [-- [compilerOptions]]
     
 # Examples
 ```bat
-compiler --version
+gnupas --version
 ```
 
 ```bat
-compiler test.pas test.exe
+gnupas test.pas test.exe
 ```
 
 ```bat
-compiler --path path-to-compiler test.pas test.exe
+gnupas --path path-to-compiler test.pas test.exe
 ```
 # Error codes
 - `0` - Success
