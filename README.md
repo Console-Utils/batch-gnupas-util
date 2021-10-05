@@ -1,8 +1,8 @@
-# GnuPas
+# GNU Pascal compiler wrapper
 
 ## Description
 
-Simplifies access to GNU Pascal compiler.
+Tool to simplify access to GNU Pascal compiler.
 
 ## Requirenments
 
